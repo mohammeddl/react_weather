@@ -1,10 +1,11 @@
-import Home from "../pages/Home";
+import { Outlet } from "react-router-dom";
+
 
 export default function GuestLayout() {
   return (
     <>
       <main>
-        <Home />
+      <Outlet />
       </main>
     </>
   );
