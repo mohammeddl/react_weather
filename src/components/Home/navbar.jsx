@@ -5,12 +5,12 @@ export default function NavBar() {
   const [mobileNav, setMobileNav] = useState(false);
   return (
     <aside
-      className={`flex flex-col m-7 rounded-3xl h-[100vh] p-3 bg-[#202b3b] dark:text-gray-800
+      className={`flex flex-col m-7 rounded-3xl h-[94vh] p-3 bg-[#202b3b] dark:text-gray-800
             ${mobileNav ? "w-16" : "w-40"}
         `}>
       <div className='space-y-3 h-[80vh]'>
         <div className='flex items-center justify-between '>
-          <img  src={logo} className={`${mobileNav ? "hidden" : "hidden md:block w-20 h-20 ml-4"}`}></img>
+          <img  src={logo} className={`${mobileNav ? "hidden" : "hidden md:block w-16 h-14 ml-6"}`}></img>
           <button className='p-2 ml-1 block md:hidden' onClick={() => setMobileNav(!mobileNav)}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
