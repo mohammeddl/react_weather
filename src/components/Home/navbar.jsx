@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png"
 
 export default function NavBar() {
@@ -24,27 +25,24 @@ export default function NavBar() {
         </div>
         <div className='flex-1'>
           <ul className='pt-2 pb-4 space-y-1 text-sm'>
-            <li className='rounded-sm'>
-              <div
-                rel='noopener noreferrer'
-                href='#'
-                className='flex items-center text-white px-2 bg-gray-500 bg-opacity-25   font-semibold p-1 space-x-3 rounded-md'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  height='14'
-                  width='17.5'
-                  viewBox='0 0 640 512'
-                    className='w-6 h-8 fill-curren text-w-600'>
-                  <path
-                    fill='#9ca0a5'
-                    d='M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z'
-                  />
-                </svg>
-                <span className={`${mobileNav ? "hidden" : "block"} `}>
-                Weather
-                </span>
-              </div>
-            </li>
+            <nav className="flex flex-col items-center gap-30">
+              <NavLink to={'/'} className='active'>
+                <i className="fa-solid fa-cloud-sun-rain text-xl"></i>
+                <span>Weather</span>
+              </NavLink>
+              <NavLink to={'/cities'} className=''>
+                <i className="fa-solid fa-list text-xl"></i>
+                <span>Cities</span>
+              </NavLink>
+              <NavLink to={'/map'} className=''>
+                <i className="fa-solid fa-map text-xl"></i>
+                <span>Map</span>
+              </NavLink>
+              <NavLink to={'/settings'} className=''>
+                <i className="fa-solid fa-gear text-xl"></i>
+                <span>Settings</span>
+              </NavLink>
+            </nav>
           </ul>
         </div>
       </div>

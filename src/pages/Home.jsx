@@ -9,15 +9,44 @@ import FutureWeather from "../components/Home/FutureWeather";
 
 function Home() {
   const [weather, setWeather] = useState();
-  const key = "77abec3864f748fc9f2200855241504";
+  const key = "402fbfadc87441159fe141236241704";
+  const keey = '188f6e276831bbab19cc0ba7441ef581'
   const [city, setCity] = useState("rabat");
+  useEffect(() => {
+    const fetchCity = async () => {
+      try {
+        const position = await getCurrentPosition();
+        const cityData = await getCityFromCoordinates(position.coords.latitude, position.coords.longitude);
+        
+        setCity(cityData);
+      } catch (error) {
+        console.error('Error fetching city:', error);
+      }
+    };
+
+    fetchCity();
+  }, []);
+
+  const getCurrentPosition = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        position => resolve(position),
+        error => reject(error)
+      );
+    });
+  };
+
+  const getCityFromCoordinates = async (latitude, longitude) => {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${keey}&units=metric`);
+    const data = await response.json();
+    return data.name;
+  };
 
   const handleSubmit = async () => {
     try {
       const response = await axios.get(
         `https://api.weatherapi.com/v1/forecast.json?q=${city}&lang=4&days=7&key=${key}`
       );
-      console.log(response.data);
       setWeather(response.data);
     } catch (error) {
       console.error("Error fetching weather data:", error);
@@ -29,8 +58,8 @@ function Home() {
 
   return (
     <>
-      <div className=' h-[100vh] flex bg-[#0b131e]'>
-        <NavBar />
+      <div className=' h-[100vh] flex bg-[#0b131e] px-2'>
+        {/* <NavBar /> */}
         <div className='flex  justify-between'>
           <div className="w-full">
             <div className='pt-8 pb-2 w-[135%]'>
