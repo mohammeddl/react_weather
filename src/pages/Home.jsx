@@ -1,11 +1,15 @@
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-import CardWeather from "../components/Home/FutureWeather";
-import NavBar from "../components/Home/navbar";
+import {useTranslation} from "react-i18next";
+//import CardWeather from "../components/Home/FutureWeather";
+//import NavBar from "../components/Home/navbar";
 import Forecast from "../components/Home/Forecast";
 import Condition from "../components/Home/Condition";
 import FutureWeather from "../components/Home/FutureWeather";
+import ar from "../assets/ar.png"
+import fr from "../assets/fr.png"
+import en from "../assets/en.png"
 
 function Home() {
   const [weather, setWeather] = useState();
@@ -26,6 +30,17 @@ function Home() {
 
     fetchCity();
   }, []);
+
+  const {t} = useTranslation();
+  const {i18n} = useTranslation();
+
+  const changeLanguage = (k) => {
+    i18n.changeLanguage(k);
+  };
+
+  useEffect(() => {
+    document.body.dir = i18n.dir();
+  }, [i18n, i18n.language]);
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -62,17 +77,22 @@ function Home() {
         {/* <NavBar /> */}
         <div className='flex  justify-between'>
           <div className="w-full">
+            <div className="mt-4 flex gap-4">
+              <button onClick={() => changeLanguage("ar")}><img src={ar} alt="english"  className="w-6"/></button>
+              <button onClick={() => changeLanguage("fr")}><img src={fr} alt="english"  className="w-6"/></button>
+              <button onClick={() => changeLanguage("en")}><img src={en} alt="english"  className="w-6"/></button>
+            </div>
             <div className='pt-8 pb-2 w-[135%]'>
               <input
                 type='text'
                 onChange={(e) => setCity(e.target.value)}
-                placeholder='Search for a city'
+                placeholder={t("searchCity")}
                 className='bg-[#202b3b] text-white p-2 rounded-md w-2/3'
               />
               <button
                 className='text-white mx-2 py-2 px-2 rounded-md bg-[#202b3b]'
                 onClick={handleSubmit}>
-                Search
+                {t("searchBtn")}
               </button>
             </div>
             <div className='w-3/3'>
@@ -83,7 +103,7 @@ function Home() {
                       {weather.location.name}
                     </h2>
                     <p className='text-gray-200 text-1xl'>
-                      Humidity: {weather.current.humidity}%
+                      {t("humidity")}: {weather.current.humidity}%
                     </p>
                     <p className='text-5xl text-white py-2'>
                       {Math.round(weather.current.feelslike_c)}

@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 export default function FutureWeather({ weather }) {
   const fetchData = weather?.forecast?.forecastday || [];
   console.log(fetchData);
@@ -8,10 +10,12 @@ export default function FutureWeather({ weather }) {
     return days[dayIndex];
   };
 
+  const {t} = useTranslation();
+
   return (
     <>
       <div className='bg-[#202b3b] py-4 rounded-3xl w-[80vh]  h-[94vh] p-3 m-7 '>
-        <p className='pl-8  text-gray-300'>7-DAY FORECAST</p>
+        <p className='pl-8  text-gray-300'>{t("weekCast")}</p>
         <ul role='list' className='divide-y  divide-gray-200 gap-2 py-6  mx-6'>
           {fetchData.map((days, index) => (
             <li key={index} className='rounded-3xl h-[12vh] py-2  mx-2 w-96'>
