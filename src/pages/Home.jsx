@@ -1,8 +1,6 @@
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-import CardWeather from "../components/Home/FutureWeather";
-import NavBar from "../components/Home/navbar";
 import Forecast from "../components/Home/Forecast";
 import Condition from "../components/Home/Condition";
 import FutureWeather from "../components/Home/FutureWeather";
@@ -10,37 +8,8 @@ import FutureWeather from "../components/Home/FutureWeather";
 function Home() {
   const [weather, setWeather] = useState();
   const key = "402fbfadc87441159fe141236241704";
-  const keey = '188f6e276831bbab19cc0ba7441ef581'
+
   const [city, setCity] = useState("rabat");
-  useEffect(() => {
-    const fetchCity = async () => {
-      try {
-        const position = await getCurrentPosition();
-        const cityData = await getCityFromCoordinates(position.coords.latitude, position.coords.longitude);
-        
-        setCity(cityData);
-      } catch (error) {
-        console.error('Error fetching city:', error);
-      }
-    };
-
-    fetchCity();
-  }, []);
-
-  const getCurrentPosition = () => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(
-        position => resolve(position),
-        error => reject(error)
-      );
-    });
-  };
-
-  const getCityFromCoordinates = async (latitude, longitude) => {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${keey}&units=metric`);
-    const data = await response.json();
-    return data.name;
-  };
 
   const handleSubmit = async () => {
     try {
